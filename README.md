@@ -7,3 +7,9 @@ A practice (assignment) of React Hook.
 ## Getting Started  
 * `npm install`  
 * `npm run dev`
+
+## Video
+[ShoppingSite video]()
+
+## Used tools  
+CSS: BootStrap, Ant Design
