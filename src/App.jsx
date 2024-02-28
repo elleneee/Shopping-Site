@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductsList from "./components/ProductsList";
 import ShoppingCart from "./components/ShoppingCart";
 import {myFirebase} from "./models/MyFirebase.js";
+import NewProduct from "./components/NewProduct.jsx";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -55,14 +56,16 @@ export default function App() {
   };
 
   // Add new product to db
-  const onAddProduct = async () => {
-    const product = {
-      id: products.at(-1)?.id + 1,
-      name: `Product ${products.length + 1}`,
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    };
+  const onAddProduct = async (product) => {
+    product.id = products.at(-1)?.id + 1;
+    product.image = "https://via.placeholder.com/150";
     await myFirebase.addProduct(product);
+    await refreshProducts();
+  };
+
+  // Delete Product from db
+  const onDeleteProduct = async (id) => {
+    await myFirebase.deleteProduct(id);
     await refreshProducts();
   };
 
@@ -84,7 +87,12 @@ export default function App() {
       <h1>Shopping Site</h1>
       <div className="row">
         <div className="col-8">
-          <ProductsList products={products} onAddProduct={onAddProduct} onAddToCart={onAddToCart}/>
+          <ProductsList 
+            products={products} 
+            onAddProduct={onAddProduct} 
+            onAddToCart={onAddToCart} 
+            onDeleteProduct={onDeleteProduct}/>
+          <NewProduct onAddProduct={onAddProduct}/>
         </div>
         <div className="col-4">
           <ShoppingCart products={productsInCart} onDeletFromCart={onDeletFromCart}/>

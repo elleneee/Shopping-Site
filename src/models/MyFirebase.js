@@ -43,11 +43,6 @@ function MyFirebase() {
     const proCollection = collection(db, "products");
     const q = query(proCollection, orderBy("id"));
     return (await getDocs(q)).docs.map((d) => d.data());
-    // return (await getDocs(proCollection)).docs.map((d) => {
-    //   const product = d.data();
-    //   product.id = d.id;
-    //   return product;
-    // });
   };
 
   // Get product by id
@@ -103,6 +98,7 @@ function MyFirebase() {
     return (await getDocs(q)).docs.map((d) => d.data());
   };
 
+  // Get product from cart by id
   me.getCartPro = async (id) => {
     if (!db) {
       console.error("Database not initialized!");
@@ -132,7 +128,6 @@ function MyFirebase() {
     const docId = (await me.getCartPro(id)).id;
     await deleteDoc(doc(db, "cartProducts", docId));
   };
-
 
   return me;
 }

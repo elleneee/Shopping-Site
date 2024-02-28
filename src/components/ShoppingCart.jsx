@@ -4,8 +4,6 @@ import Pagination from "./Pagination";
 
 export default function ShoppingCart({ products, onDeletFromCart }) {
 
-  // console.log("products in cart", products);
-
   // current page of the cart
   const [cartPage, setCartPage] = useState({
     currentPage: 1,
@@ -13,6 +11,7 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
     total: Math.ceil(products.length / 20),
   });
 
+  // Keep track on products and change cart page 
   useEffect(() => {
     const totalpages = Math.ceil(products.length / 20);
     setCartPage({
@@ -22,8 +21,7 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
     });
   }, [products]);
 
-  // console.log("cart page", cartPage);
-
+  // Delete product from cart
   const onDelete = (event) => {
     onDeletFromCart(+event.target.value);
   };
