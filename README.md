@@ -1,5 +1,6 @@
 # Shopping-Site
-A practice (assignment) of React Hook.
+A practice (assignment) of React Hook.  
+Author: Jing Xia
 
 ## Visit online  
 [ShoppingSite](https://shoppingsite-dfe90.web.app)  
