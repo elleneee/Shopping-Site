@@ -6,30 +6,6 @@ import NewProduct from "./components/NewProduct.jsx";
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  // {
-  //   id: 1,
-  //   name: "Product 1",
-  //   price: 100,
-  //   image: "https://via.placeholder.com/150",
-  // },
-  // {
-  //   id: 2,
-  //   name: "Product 2",
-  //   price: 100,
-  //   image: "https://via.placeholder.com/150",
-  // },
-  // {
-  //   id: 3,
-  //   name: "Product 3",
-  //   price: 100,
-  //   image: "https://via.placeholder.com/150",
-  // },
-  // {
-  //   id: 4,
-  //   name: "Product 4",
-  //   price: 100,
-  //   image: "https://via.placeholder.com/150",
-  // },
 
   const [productsInCart, setProductsInCart] = useState([]);
 
@@ -46,13 +22,6 @@ export default function App() {
   // Get products from db and refresh
   const refreshProducts = async () => {
     setProducts(await myFirebase.getProducts());
-    console.log("Get products", products);
-    // console.log(products);
-  };
-
-  const refreshCart = async () => {
-    setProductsInCart(await myFirebase.getCart());
-    console.log("Get cart products", productsInCart);
   };
 
   // Add new product to db
@@ -75,6 +44,11 @@ export default function App() {
     await refreshProducts();
   };
 
+  // Get products of cart from db and refresh
+  const refreshCart = async () => {
+    setProductsInCart(await myFirebase.getCart());
+  };
+
   // Add product to cart
   const onAddToCart = async (id) => {
     await myFirebase.addToCart(products.find((p) => p.id === id));
@@ -83,7 +57,6 @@ export default function App() {
 
   // Delete product from cart
   const onDeletFromCart = async (id) => {
-    // setProductsInCart(productsInCart.filter((p) => p.id !== id));
     await myFirebase.deleteFromCart(id);
     await refreshCart();
   };
