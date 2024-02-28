@@ -63,6 +63,12 @@ export default function App() {
     await refreshProducts();
   };
 
+  // Modify product
+  const onModifyProduct = async (product) => {
+    await myFirebase.updateProduct(product);
+    await refreshProducts();
+  };
+
   // Delete Product from db
   const onDeleteProduct = async (id) => {
     await myFirebase.deleteProduct(id);
@@ -91,7 +97,8 @@ export default function App() {
             products={products} 
             onAddProduct={onAddProduct} 
             onAddToCart={onAddToCart} 
-            onDeleteProduct={onDeleteProduct}/>
+            onDeleteProduct={onDeleteProduct}
+            onModifyProduct={onModifyProduct}/>
           <NewProduct onAddProduct={onAddProduct}/>
         </div>
         <div className="col-4">

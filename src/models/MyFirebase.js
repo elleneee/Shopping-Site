@@ -33,7 +33,7 @@ function MyFirebase() {
 
   const me = {};
 
-  /**================== Products table ==========*/
+  /**================== Products table =================*/
   // Get products from db
   me.getProducts = async () => {
     if (!db) {
@@ -86,7 +86,7 @@ function MyFirebase() {
     await updateDoc(doc(db, "products", docId), product);
   };
 
-  /**================== cartProducts table ==========*/
+  /**================== cartProducts table ==================*/
   // Get products in cart
   me.getCart = async () => {
     if (!db) {
