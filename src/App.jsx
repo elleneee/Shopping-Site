@@ -1,74 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductsList from "./components/ProductsList";
 import ShoppingCart from "./components/ShoppingCart";
+import {myFirebase} from "./models/MyFirebase.js";
 
 export default function App() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 4,
-      name: "Product 4",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+  // {
+  //   id: 1,
+  //   name: "Product 1",
+  //   price: 100,
+  //   image: "https://via.placeholder.com/150",
+  // },
+  // {
+  //   id: 2,
+  //   name: "Product 2",
+  //   price: 100,
+  //   image: "https://via.placeholder.com/150",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Product 3",
+  //   price: 100,
+  //   image: "https://via.placeholder.com/150",
+  // },
+  // {
+  //   id: 4,
+  //   name: "Product 4",
+  //   price: 100,
+  //   image: "https://via.placeholder.com/150",
+  // },
 
-  const [productsInCart, setProductsInCart] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 100,
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
+  const [productsInCart, setProductsInCart] = useState([]);
 
-  // Add new product
-  const onAddProduct = () => {
-    setProducts([
-      ...products,
-      {
-        id: products.at(-1)?.id + 1,
-        name: `Product ${products.length + 1}`,
-        price: 100,
-        image: "https://via.placeholder.com/150",
-      },
-    ]);
+  // Get products from db at the beginning
+  useEffect(() => {
+    const setData = async () => {
+      await refreshProducts();
+      await refreshCart();
+    };
+    setData();
+  }, []);
+
+
+  // Get products from db and refresh
+  const refreshProducts = async () => {
+    setProducts(await myFirebase.getProducts());
+    console.log("Get products", products);
+    // console.log(products);
+  };
+
+  const refreshCart = async () => {
+    setProductsInCart(await myFirebase.getCart());
+    console.log("Get cart products", productsInCart);
+  };
+
+  // Add new product to db
+  const onAddProduct = async () => {
+    const product = {
+      id: products.at(-1)?.id + 1,
+      name: `Product ${products.length + 1}`,
+      price: 100,
+      image: "https://via.placeholder.com/150",
+    };
+    await myFirebase.addProduct(product);
+    await refreshProducts();
   };
 
   // Add product to cart
-  const onAddToCart = (id) => {
-    setProductsInCart([
-      ...productsInCart,
-      products.find((p) => p.id === id),
-    ]);
+  const onAddToCart = async (id) => {
+    await myFirebase.addToCart(products.find((p) => p.id === id));
+    await refreshCart();
   };
 
   // Delete product from cart
-  const onDeletFromCart = (id) => {
-    setProductsInCart(productsInCart.filter((p) => p.id !== id));
+  const onDeletFromCart = async (id) => {
+    // setProductsInCart(productsInCart.filter((p) => p.id !== id));
+    await myFirebase.deleteFromCart(id);
+    await refreshCart();
   };
 
   return (

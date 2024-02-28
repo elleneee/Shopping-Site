@@ -17,7 +17,7 @@ export default function Pagination({ cartPage, onChangePage}) {
 
   // When click page num, change related products
   const onChange = (event) => {
-    onChangePage(event.target.id);
+    onChangePage(+event.target.id);
   };
 
   // When click previous, change to previous page

@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Pagination from "./Pagination";
 
 export default function ShoppingCart({ products, onDeletFromCart }) {
 
+  // console.log("products in cart", products);
+
   // current page of the cart
-  const [cartPage, setCartPage] = useState(
-    {
-      curentPage: 1,
-      currentProducts: products.length > 20 ? products.slice(0, 20) : products,
-      total: Math.ceil(products.length / 20),
-    }
-  );
+  const [cartPage, setCartPage] = useState({
+    currentPage: 1,
+    currentProducts: products.length > 20 ? products.slice(0, 20) : products.slice(0),
+    total: Math.ceil(products.length / 20),
+  });
+
+  useEffect(() => {
+    const totalpages = Math.ceil(products.length / 20);
+    setCartPage({
+      currentPage: cartPage.currentPage > totalpages ? totalpages : cartPage.currentPage,
+      currentProducts: products.length > 20 ? products.slice(0, 20) : products.slice(0),
+      total: totalpages,
+    });
+  }, [products]);
+
+  // console.log("cart page", cartPage);
 
   const onDelete = (event) => {
     onDeletFromCart(+event.target.value);
@@ -21,7 +32,7 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
     const start = 20 * (num - 1);
     const end = products.length > 20 ? 20 * num : products.length;
     setCartPage({
-      curentPage: num,
+      currentPage: num,
       currentProducts: products.slice(start, end),
       total: Math.ceil(products.length / 20),
     });
