@@ -14,7 +14,7 @@ export default function ModifyProduct({product, onModifyProduct}) {
     onModifyProduct({
       id: product.id,
       name: nameRef.current.value,
-      price: priceRef.current.value,
+      price: +priceRef.current.value,
       image: product.image,
     });
     setIsModalOpen(false);

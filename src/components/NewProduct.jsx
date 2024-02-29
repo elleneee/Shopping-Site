@@ -8,7 +8,7 @@ export default function NewProduct({ onAddProduct }) {
     const formData = new FormData(event.target);
     onAddProduct({
       name: formData.get("name"),
-      price: formData.get("price"),
+      price: +formData.get("price"),
     });
     event.target.reset();
   };

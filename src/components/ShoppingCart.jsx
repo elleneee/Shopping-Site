@@ -38,21 +38,21 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
 
   const renderProducts = (product, i) => {
     return (
-      <div className=" mb-2 p-1" key={i}>
-        {/* <img src={product.image} alt={product.name}/> */}
+      <li className=" mb-2 p-1" key={i}>
         <span className="text-center m-2">{product.name}</span>
-        <span className="text-center m-2">Price: {product.price}</span>
+        <span className="text-center m-2">$ {product.price}</span>
         <button className="btn btn-sm btn-outline-danger" value={product.id} onClick={onDelete}> - </button>
-      </div>
+      </li>
     );
   };
 
   return (
     <div>
       <h3>Shopping Cart</h3>
-      <div>
+      <ol>
         {cartPage.currentProducts.map(renderProducts)}
-      </div>
+      </ol>
+      Total : $ {products.reduce( (pre, curp) => pre + curp.price, 0)}
       <Pagination cartPage={cartPage} onChangePage={onChangePage}/> 
     </div>
   );
