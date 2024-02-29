@@ -1,5 +1,6 @@
 # Shopping-Site
 A practice (assignment) of React Hook.  
+A shopping site consists of product list, shopping cart and creating new product.
 Author: Jing Xia
 
 ## Visit online  
@@ -10,7 +11,8 @@ Author: Jing Xia
 * `npm run dev`
 
 ## Video
-[ShoppingSite video]()
+[ShoppingSite video](https://youtu.be/XQY_J3DTRAQ)
 
 ## Used tools  
-CSS: BootStrap, Ant Design
+CSS: BootStrap
+Database: Firebase
