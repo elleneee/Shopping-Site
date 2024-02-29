@@ -1,41 +1,51 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Modal } from "antd";
 
 export default function ModifyProduct({product, onModifyProduct}) {
-  const nameRef = useRef();
-  const priceRef = useRef();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
+  const onModify = (event) => {
+    event.preventDefault();
+    const formdata = new FormData(event.target);
     onModifyProduct({
       id: product.id,
-      name: nameRef.current.value,
-      price: +priceRef.current.value,
+      name: formdata.get("name"),
+      price: +formdata.get("price"),
       image: product.image,
     });
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
+    event.target.reset();
   };
 
   return (
     <div className="col d-inline-grid pe-0">
-      <button className="btn btn-sm btn-outline-primary" type="primary" onClick={showModal}>
-        Modify
+      <button className="btn btn-sm btn-outline-primary" type="primary" 
+        data-bs-toggle="modal" 
+        data-bs-target={`#${product.id}`}>
+         Modify
       </button>
-      <Modal title="Modify Product" okText="Comfirm" cancelText="Cancle" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <form>
-          <label className="form-label" htmlFor="name">Name</label>
-          <input className="form-control" type="text" id="name" name="name" ref={nameRef} defaultValue={product.name}></input>
-          <label className="form-label" htmlFor="price">Price</label>
-          <input className="form-control" type="number" id="price" name="price" ref={priceRef} defaultValue={product.price}></input>
-        </form>
-      </Modal>
+      <div className="modal" id={product.id} aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-body">
+              <h4>Modify Product</h4>
+              <form onSubmit={onModify}>
+                <label className="form-label" htmlFor="name">Name</label>
+                <input className="form-control mb-3" type="text" id="name" name="name" defaultValue={product.name}></input>
+                <label className="form-label" htmlFor="price">Price</label>
+                <input className="form-control mb-3" type="number" id="price" name="price" defaultValue={product.price}></input>
+                <button className="btn btn-sm btn-outline-primary me-3" type="button"
+                  data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button className="btn btn-sm btn-outline-primary" type="submit"
+                  data-bs-dismiss="modal">
+                    Comfirm
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
