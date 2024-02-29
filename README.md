@@ -1,6 +1,7 @@
 # Shopping-Site
 A practice (assignment) of React Hook.  
-A shopping site consists of product list, shopping cart and creating new product.
+A shopping site consists of product list, shopping cart and creating new product.  
+
 Author: Jing Xia
 
 ## Visit online  
