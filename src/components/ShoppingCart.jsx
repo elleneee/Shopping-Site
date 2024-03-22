@@ -38,10 +38,13 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
 
   const renderProducts = (product, i) => {
     return (
-      <li className=" mb-2 p-1" key={i}>
-        <span className="text-center m-2">{product.name}</span>
-        <span className="text-center m-2">$ {product.price}</span>
-        <button className="btn btn-sm btn-outline-danger" value={product.id} onClick={onDelete}> - </button>
+      <li className="mb-2 p-1" key={i}>
+        <div className="d-flex flex-row justify-content-between align-items-center">
+          <span className="text-center m-2">{product.name}</span>
+          <span className="text-center m-2">$ {product.price}</span>
+          <button className="btn btn-sm btn-outline-danger" value={product.id} onClick={onDelete}> - </button>
+
+        </div>
       </li>
     );
   };
