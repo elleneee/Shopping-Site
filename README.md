@@ -14,6 +14,5 @@ Author: Jing Xia
 ## Video
 [ShoppingSite video](https://youtu.be/XQY_J3DTRAQ)
 
-## Used tools  
-CSS: BootStrap
-Database: Firebase
+## Used method and tools  
+Document: [ShoppingSite develop doc](https://docs.google.com/document/d/1rvswMOx5GfGkByjZ9vveWpA6OltYzELe7ov48sOuuf0/edit?usp=sharing)
