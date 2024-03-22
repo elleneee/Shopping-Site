@@ -12,7 +12,7 @@ Author: Jing Xia
 * `npm run dev`
 
 ## Video
-[ShoppingSite video](https://youtu.be/XQY_J3DTRAQ)
+[ShoppingSite video]([https://youtu.be/XQY_J3DTRAQ](https://youtu.be/Lehb7ZiXZNc))
 
 ## Used method and tools  
 Document: [ShoppingSite develop doc](https://docs.google.com/document/d/1rvswMOx5GfGkByjZ9vveWpA6OltYzELe7ov48sOuuf0/edit?usp=sharing)
