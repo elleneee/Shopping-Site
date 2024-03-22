@@ -13,20 +13,14 @@ export default function Product({product, onAddToCart, onDeleteProduct, onModify
   };
 
   return (
-    <div className="col-4">
-      <div className="card mb-2 p-1">
-        <img src={product.image} alt={product.name}/>
-        <span className="text-center m-1">{product.name}</span>
-        <button className="btn btn-sm btn-outline-primary mb-1" value={product.id} onClick={onAdd}>Add to cart</button>
-        <div className="row">
-          <ModifyProduct product={product} onModifyProduct={onModifyProduct}/>
-          <div className="col d-inline-grid ps-1">
-            <button className="btn btn-sm btn-outline-danger" value={product.id} 
-              onClick={onDelete}>
-                X 
-            </button>
-          </div>
-        </div>
+    <div className="d-flex flex-row mb-3 align-items-center">
+      <img className="d-inline-block" src={product.image} alt={product.name}/>
+      <span className="col-3 text-center ms-5 me-20">{product.name}</span>
+      <span className="text-center ms-5 me-20">$ {product.price}</span>
+      <div className="d-flex flex-fill justify-content-end gap-3">
+        <button className="btn btn-sm btn-outline-primary" value={product.id} onClick={onAdd}>Add</button>
+        <ModifyProduct product={product} onModifyProduct={onModifyProduct}/>
+        <button className="btn btn-sm btn-danger" value={product.id} onClick={onDelete}>Delete</button>
       </div>
     </div>
   );

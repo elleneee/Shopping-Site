@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function Pagination({ cartPage, onChangePage}) {
+export default function Pagination({ page, onChangePage}) {
   // Render page indexes
   const renderPages = () => {
     let pages = [];
-    for (let i = 1; i < cartPage.total + 1; i++) {
+    for (let i = 1; i < page?.total + 1; i++) {
       pages.push(
         <li key={i} className="page-item">
           <a className="page-link" href="#" id={i} onClick={onChange}>{i}</a>
@@ -22,16 +22,16 @@ export default function Pagination({ cartPage, onChangePage}) {
 
   // When click previous, change to previous page
   const onPrevious = () => {
-    const num = cartPage.currentPage > 1 ? cartPage.currentPage - 1 : 1;
+    const num = page.currentPage > 1 ? page.currentPage - 1 : 1;
     onChangePage(num);
-    console.log(cartPage);
+    console.log(page);
   };
 
   // When click next, change to next page
   const onNext = () => {
-    const num = cartPage.currentPage < cartPage.total ? cartPage.currentPage + 1 : cartPage.total;
+    const num = page.currentPage < page.total ? page.currentPage + 1 : page.total;
     onChangePage(num);
-    console.log(cartPage);
+    console.log(page);
   };
 
   return (
@@ -52,6 +52,6 @@ export default function Pagination({ cartPage, onChangePage}) {
   );
 }
 Pagination.propTypes = {
-  cartPage: PropTypes.object.isRequired,
+  page: PropTypes.object,
   onChangePage: PropTypes.func.isRequired,
 };

@@ -16,7 +16,7 @@ export default function ModifyProduct({product, onModifyProduct}) {
   };
 
   return (
-    <div className="col d-inline-grid pe-0">
+    <div>
       <button className="btn btn-sm btn-outline-primary" type="primary" 
         data-bs-toggle="modal" 
         data-bs-target={`#${product.id}`}>
@@ -29,9 +29,11 @@ export default function ModifyProduct({product, onModifyProduct}) {
               <h4>Modify Product</h4>
               <form onSubmit={onModify}>
                 <label className="form-label" htmlFor="name">Name</label>
-                <input className="form-control mb-3" type="text" id="name" name="name" defaultValue={product.name}></input>
+                <input className="form-control mb-3" type="text" id="name" name="name" 
+                  defaultValue={product.name}></input>
                 <label className="form-label" htmlFor="price">Price</label>
-                <input className="form-control mb-3" type="number" id="price" name="price" defaultValue={product.price}></input>
+                <input className="form-control mb-3" type="number" id="price" name="price" 
+                  defaultValue={product.price} ></input>
                 <button className="btn btn-sm btn-outline-primary me-3" type="button"
                   data-bs-dismiss="modal">
                     Cancel

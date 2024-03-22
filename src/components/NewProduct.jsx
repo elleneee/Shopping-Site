@@ -1,35 +1,53 @@
-import React from "react";
+import {React} from "react";
 import PropTypes from "prop-types";
 
-export default function NewProduct({ onAddProduct }) {
+export default function NewProduct({ onNewProduct }) {
 
-  const onAdd = (event) => {
+  const onNew = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    onAddProduct({
-      name: formData.get("name"),
-      price: +formData.get("price"),
+    const name = formData.get("name");
+    const price = +formData.get("price");
+    onNewProduct({
+      name: name,
+      price: price,
     });
     event.target.reset();
   };
 
   return (
-    <div className="mt-3">
-      <h3>Create Product</h3>
-      <form onSubmit={onAdd}>
-        <div className="mb-3 col-4">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" id="name" name="name" className="form-control"></input>
+    <div className="col d-inline-grid pe-0">
+      <button className="btn btn-sm btn-primary" type="primary" 
+        data-bs-toggle="modal" 
+        data-bs-target="#newProductModal">
+         New Product
+      </button>
+      <div className="modal" id="newProductModal" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-body">
+              <h4>New Product</h4>
+              <form onSubmit={onNew}>
+                <label className="form-label" htmlFor="name">Name</label>
+                <input className="form-control mb-3" type="text" id="name" name="name" required></input>
+                <label className="form-label" htmlFor="price">Price</label>
+                <input className="form-control mb-3" type="number" id="price" name="price" required></input>
+                <button className="btn btn-sm btn-outline-primary me-3" type="button"
+                  data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button className="btn btn-sm btn-outline-primary" type="submit"
+                  data-bs-dismiss="modal">
+                    Comfirm
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="mb-3 col-4">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input type="number" id="price" name="price" className="form-control"></input>
-        </div>
-        <button className="btn btn-primary" type="submit">Comfirm</button>
-      </form>
+      </div>
     </div>
   );
 }
 NewProduct.propTypes = {
-  onAddProduct: PropTypes.func.isRequired,
+  onNewProduct: PropTypes.func.isRequired,
 };

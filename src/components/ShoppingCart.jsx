@@ -53,7 +53,7 @@ export default function ShoppingCart({ products, onDeletFromCart }) {
         {cartPage.currentProducts.map(renderProducts)}
       </ul>
       Total : $ {products.reduce( (pre, curp) => pre + curp.price, 0)}
-      <Pagination cartPage={cartPage} onChangePage={onChangePage}/> 
+      <Pagination page={cartPage} onChangePage={onChangePage}/> 
     </div>
   );
 }

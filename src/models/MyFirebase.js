@@ -34,8 +34,9 @@ function MyFirebase() {
   const me = {};
 
   /**================== Products table =================*/
+
   // Get products from db
-  me.getProducts = async () => {
+  async function getProducts () {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -46,7 +47,7 @@ function MyFirebase() {
   };
 
   // Get product by id
-  me.getProductById = async (id) => {
+  async function getProductById(id) {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -57,7 +58,7 @@ function MyFirebase() {
   };
 
   // Add new Product to db
-  me.addProduct = async (product) => {
+  async function addProduct(product) {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -67,28 +68,30 @@ function MyFirebase() {
   };
 
   // Delete product from db
-  me.deleteProduct = async (id) => {
+  async function deleteProduct(id) {
     if (!db) {
       console.error("Database not initialized!");
       return;
     }
     const docId = (await me.getProductById(id)).id;
+    // await deleteDoc(doc(db, "products", id));
     await deleteDoc(doc(db, "products", docId));
   };
 
   // Update product by Id
-  me.updateProduct = async (product) => {
+  async function updateProduct(product) {
     if (!db) {
       console.error("Database not initialized!");
       return;
     }
     const docId = (await me.getProductById(product.id)).id;
     await updateDoc(doc(db, "products", docId), product);
+    // await updateDoc(doc(db, "products", docid), product);
   };
 
   /**================== cartProducts table ==================*/
   // Get products in cart
-  me.getCart = async () => {
+  async function getCart() {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -99,7 +102,7 @@ function MyFirebase() {
   };
 
   // Get product from cart by id
-  me.getCartPro = async (id) => {
+  async function getCartPro (id) {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -107,10 +110,11 @@ function MyFirebase() {
     const proCollection = collection(db, "cartProducts");
     const q = query(proCollection, where("id", "==", id));
     return (await getDocs(q)).docs[0];
+    // return (await getDocs(doc(db, "products", id))).docs[0];
   };
 
   // Add product to cart
-  me.addToCart = async (product) => {
+  async function addToCart(product) {
     if (!db) {
       console.error("Database not initialized!");
       return;
@@ -120,18 +124,28 @@ function MyFirebase() {
   };
 
   // Delete product from cart
-  me.deleteFromCart = async (id) => {
+  async function deleteFromCart(id) {
     if (!db) {
       console.error("Database not initialized!");
       return;
     }
     const docId = (await me.getCartPro(id)).id;
     await deleteDoc(doc(db, "cartProducts", docId));
+    // await deleteDoc(doc(db, "cartProducts", id));
   };
+
+  me.getProducts = getProducts;
+  me.getProductById = getProductById;
+  me.addProduct = addProduct;
+  me.deleteProduct = deleteProduct;
+  me.updateProduct = updateProduct;
+  me.getCart = getCart;
+  me.getCartPro = getCartPro;
+  me.addToCart = addToCart;
+  me.deleteFromCart = deleteFromCart;
 
   return me;
 }
-
 
 // Singleton
 export const myFirebase = new MyFirebase();
